@@ -14,16 +14,18 @@ class TasksListView extends StatelessWidget {
   Widget build(BuildContext context) {
     //final int length = context.select((TasksCubit tc) => tc.state.length);
     final tasksCubit = context.watch<TasksCubit>();
-    // final tasksSortStatusCubit = context.watch<TasksSortStatusCubit>();
-    // int completedCount = 0;
-    // tasksCubit.state.forEach((element) {
-    //   if(element.isCompleted){
-    //     completedCount++;
-    //   }
-    // });
+    final tasksSortStatusCubit = context.watch<TasksSortStatusCubit>();
+    int completedCount = 0;
+    for (var element in tasksCubit.state) {
+      if (element.isCompleted) {
+        completedCount++;
+      }
+    }
 
     return ListView.builder(
-      itemCount: tasksCubit.state.length,
+      itemCount: tasksSortStatusCubit.state.hideCompleted
+          ? tasksCubit.state.length - completedCount
+          : tasksCubit.state.length,
       itemBuilder: (BuildContext context, int index) {
         return TaskItem(index);
       },

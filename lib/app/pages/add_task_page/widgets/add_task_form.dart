@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobyte_second_task/app/utils/app_theme.dart';
+import 'package:mobyte_second_task/domain/sort_status.dart';
 import 'package:mobyte_second_task/domain/task.dart';
 import 'package:mobyte_second_task/domain/tasks_cubit.dart';
+import 'package:mobyte_second_task/domain/tasks_sort_status_cubit.dart';
 
 class AddTaskForm extends StatefulWidget {
   const AddTaskForm({super.key});
@@ -137,7 +139,11 @@ class _AddTaskFormState extends State<AddTaskForm> {
   void _addTask() {
     if (_formKey.currentState!.validate()) {
       Task newTask = Task(title: _textController.text, deadline: selectedDate);
-      context.read<TasksCubit>().addTask(newTask);
+      final TasksCubit tasksCubit = context.read<TasksCubit>();
+      tasksCubit.addTask(newTask);
+      final TasksSortStatusCubit tasksSortStatusCubit =
+          context.read<TasksSortStatusCubit>();
+      tasksCubit.sort(tasksSortStatusCubit.state.sortStatus);
       Navigator.pop(context);
     }
   }

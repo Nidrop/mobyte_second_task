@@ -23,7 +23,9 @@ class TaskItem extends StatelessWidget {
       if (val == null) {
         return;
       }
-      context.read<TasksCubit>().changeTask(index: index, isCompleted: val);
+      final TasksCubit tasksCubit = context.read<TasksCubit>();
+      tasksCubit.changeTask(index: index, isCompleted: val);
+      tasksCubit.sortCompleted();
     }
 
     void onTap() {

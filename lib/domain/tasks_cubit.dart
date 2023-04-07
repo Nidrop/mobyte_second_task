@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobyte_second_task/domain/sort_status.dart';
 import 'package:mobyte_second_task/domain/task.dart';
 
 class TasksCubit extends Cubit<List<Task>> {
@@ -25,6 +24,33 @@ class TasksCubit extends Cubit<List<Task>> {
     if (deadline != null) {
       state[index].deadline = deadline;
     }
+    emit([...state]);
+  }
+
+  void sortCompleted() {
+    state.sort((a, b) {
+      if (!b.isCompleted) {
+        return 1;
+      }
+      return -1;
+    });
+
+    emit([...state]);
+  }
+
+  void sort(SortStatus sortStatus) {
+    switch (sortStatus) {
+      case SortStatus.alph:
+        state.sort((b, a) => a.title.compareTo(b.title));
+        break;
+      case SortStatus.revAlph:
+        state.sort((a, b) => a.title.compareTo(b.title));
+        break;
+      case SortStatus.newest:
+        state.sort((b, a) => a.deadline.compareTo(b.deadline));
+        break;
+    }
+    sortCompleted();
     emit([...state]);
   }
 }

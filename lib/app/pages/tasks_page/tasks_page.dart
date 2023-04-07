@@ -43,8 +43,15 @@ class TasksPage extends StatelessWidget {
         isScrollControlled: true,
         builder: (_) => FractionallySizedBox(
           heightFactor: 0.96,
-          child: BlocProvider.value(
-            value: BlocProvider.of<TasksCubit>(context),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: BlocProvider.of<TasksCubit>(context),
+              ),
+              BlocProvider.value(
+                value: BlocProvider.of<TasksSortStatusCubit>(context),
+              ),
+            ],
             child: const AddTaskPage(),
           ),
         ),
