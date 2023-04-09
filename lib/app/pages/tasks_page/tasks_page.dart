@@ -58,8 +58,8 @@ class TasksPage extends StatelessWidget {
       );
     }
 
-    final bool listIsEmpty =
-        context.select((TasksCubit tc) => tc.state.isEmpty);
+    // final bool listIsEmpty =
+    //     context.select((TasksCubit tc) => tc.state.isEmpty);
     //final bool listIsEmpty = context.watch<TasksCubit>().state.isEmpty;
 
     return Scaffold(
@@ -84,8 +84,8 @@ class TasksPage extends StatelessWidget {
           )
         ],
       ),
-      body: listIsEmpty ? const ZeroTasks() : const TasksListView(),
-      //body: const TasksListView(),
+      //body: listIsEmpty ? const ZeroTasks() : const TasksListView(),
+      body: const TasksListView(),
       floatingActionButton: Padding(
         padding: EdgeInsets.only(left: 32.w),
         child: Row(

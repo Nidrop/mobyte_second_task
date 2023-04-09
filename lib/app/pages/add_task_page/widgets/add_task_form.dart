@@ -6,6 +6,7 @@ import 'package:mobyte_second_task/domain/sort_status.dart';
 import 'package:mobyte_second_task/domain/task.dart';
 import 'package:mobyte_second_task/domain/tasks_cubit.dart';
 import 'package:mobyte_second_task/domain/tasks_sort_status_cubit.dart';
+import 'package:mobyte_second_task/main.dart';
 
 class AddTaskForm extends StatefulWidget {
   const AddTaskForm({super.key});
@@ -144,6 +145,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
       final TasksSortStatusCubit tasksSortStatusCubit =
           context.read<TasksSortStatusCubit>();
       tasksCubit.sort(tasksSortStatusCubit.state.sortStatus);
+      database.addTodo(newTask);
       Navigator.pop(context);
     }
   }

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobyte_second_task/app/utils/app_theme.dart';
 import 'package:mobyte_second_task/domain/task.dart';
 import 'package:mobyte_second_task/domain/tasks_cubit.dart';
+import 'package:mobyte_second_task/main.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem(
@@ -25,6 +26,7 @@ class TaskItem extends StatelessWidget {
       }
       final TasksCubit tasksCubit = context.read<TasksCubit>();
       tasksCubit.changeTask(index: index, isCompleted: val);
+      database.updateStatus(tasksCubit.state[index]);
       tasksCubit.sortCompleted();
     }
 

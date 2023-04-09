@@ -1,9 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobyte_second_task/domain/sort_status.dart';
 import 'package:mobyte_second_task/domain/task.dart';
+import 'package:mobyte_second_task/main.dart';
 
 class TasksCubit extends Cubit<List<Task>> {
   TasksCubit() : super([]);
+
+  void setList(List<Task>? list) {
+    if (list == null) {
+      emit([Task(title: 'error: smth bad happened', deadline: DateTime.now())]);
+    } else {
+      emit(list);
+    }
+  }
 
   void addTask(Task task) {
     emit([...state, task]);
